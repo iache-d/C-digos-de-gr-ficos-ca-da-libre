@@ -1,0 +1,30 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Datos usados
+valores = np.array([
+    9.508055976, 9.37295764,
+    9.577921126, 9.511728486
+])
+
+promedio = 9.492665807
+
+
+tiempo_extendido = np.linspace(0, 60, 10000) 
+
+plt.figure(figsize=(10, 6))
+
+for i, valor in enumerate(valores):
+    ajuste = np.polyfit(tiempo_extendido, valor * tiempo_extendido, 1)  
+    plt.plot(tiempo_extendido, np.polyval(ajuste, tiempo_extendido), label=f'Línea {i+1}', linestyle='--')
+
+ajuste_promedio = np.polyfit(tiempo_extendido, promedio * tiempo_extendido, 1)
+plt.plot(tiempo_extendido, np.polyval(ajuste_promedio, tiempo_extendido), label='Promedio', color='red', linewidth=2)
+
+
+plt.xlabel('Tiempo (s)')
+plt.ylabel('Velocidad (m/s)')
+plt.legend()
+plt.grid(True)
+
+plt.show()
