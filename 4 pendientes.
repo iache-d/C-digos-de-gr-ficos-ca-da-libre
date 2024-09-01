@@ -1,0 +1,29 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+valores = np.array([
+    9.751539758,  # Promedio de los primeros 4 tiros
+    9.688366947,  # Promedio de los últimos 12 tiros
+    9.641855547,  # Promedio de tiros con roce viscoso simple
+    9.492665807   # Promedio de tiros con roce viscoso estratégico
+])
+
+tiempo_extendido = np.linspace(0, 60, 10000)
+
+plt.figure(figsize=(10, 6))
+
+for i, valor in enumerate(valores):
+    ajuste = np.polyfit(tiempo_extendido, valor * tiempo_extendido, 1) 
+    plt.plot(tiempo_extendido, np.polyval(ajuste, tiempo_extendido), label=f'Línea {i+1}', linestyle='--')
+
+plt.xlabel('Tiempo (s)')
+plt.ylabel('Velocidad (m/s)')
+plt.legend([
+    'Promedio de los primeros 4 tiros', 
+    'Promedio de los últimos 12 tiros', 
+    'Promedio de tiros con roce viscoso simple', 
+    'Promedio de tiros con roce viscoso estratégico'
+])
+plt.grid(True)
+
+plt.show()
